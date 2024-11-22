@@ -2,7 +2,7 @@
 
 Welcome to the Braid Access Repository. You’ve just created an AWS account, and now it’s time to grant us access so we can manage your account and deploy the infrastructure, including the necessary software, into your AWS environment. Since security is very important to us, we request access to your account through an IAM role that we will assume. This role allows us to efficiently and securely access your account to perform all the required tasks.
 
-The deployment process is straightforward, and this guide will walk you through it step by step. 
+The deployment process is straightforward, and this guide will walk you through it step by step.
 
 ## Preparation Steps
 
