@@ -4,13 +4,13 @@ Welcome to the Braid Access Repository. You’ve just created an AWS account, an
 
 The deployment process is straightforward, and this guide will walk you through it step by step. 
 
-## Steps to Deploy the IAM Role
+## Preparation Steps
 
 1. Open a new tab and ensure you are logged into your new AWS account.  
 1. Verify that you have selected the correct region: **us-east-1 (Virginia)**.  
 1. Once you’ve confirmed the above, click the following link to open the AWS CloudFormation Console with a prefilled template: **[Click here to start](#)**.  
 
-## Deploying the CloudFormation Template
+## Deploying the Template
 
 1. In the newly opened tab, click the orange `Next` button.  
 1. On the next page, simply click the orange `Next` button again.  
