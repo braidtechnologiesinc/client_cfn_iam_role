@@ -8,7 +8,7 @@ The deployment process is straightforward, and this guide will walk you through 
 
 1. Open a new tab and ensure you are logged into your new AWS account.  
 1. Verify that you have selected the correct region: **us-east-1 (Virginia)**.  
-1. Once you’ve confirmed the above, click the following link to open the AWS CloudFormation Console with a prefilled template: **[Click here to start](#)**.  
+1. Once you’ve confirmed the above, click the following link to open the AWS CloudFormation Console with a prefilled template: **[Click here to start](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=braid-access&templateURL=https://braid-438465148503-us-east-1-cdn.s3.us-east-1.amazonaws.com/cfn/client_cfn_iam_role.json)**.  
 
 ## Deploying the Template
 
