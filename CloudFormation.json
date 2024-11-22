@@ -1,0 +1,93 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Enable Braid to access and manage the AWS account securely.",
+    "Resources": {
+        "Braid": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "x_braid_access",
+                "MaxSessionDuration": 3600,
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::992382720710:root"
+                            },
+                            "Action": "sts:AssumeRole",
+                            "Condition": {
+                                "Bool": {
+                                    "aws:MultiFactorAuthPresent": "true"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::339713052484:role/tool_cloud_ide"
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/AdministratorAccess"
+                ],
+                "Policies": [
+                    {
+                        "PolicyName": "DenySensitiveActions",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Sid": "DenyIAMUserManagement",
+                                    "Effect": "Deny",
+                                    "Action": [
+                                        "iam:CreateUser",
+                                        "iam:UpdateUser",
+                                        "iam:DeleteUser",
+                                        "iam:CreateAccessKey",
+                                        "iam:DeleteAccessKey",
+                                        "iam:UpdateAccessKey"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Sid": "DenyCloudTrailDisabling",
+                                    "Effect": "Deny",
+                                    "Action": [
+                                        "cloudtrail:StopLogging",
+                                        "cloudtrail:DeleteTrail",
+                                        "cloudtrail:UpdateTrail"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Sid": "DenyLogDeletion",
+                                    "Effect": "Deny",
+                                    "Action": [
+                                        "logs:DeleteLogGroup",
+                                        "logs:DeleteLogStream",
+                                        "logs:DeleteMetricFilter",
+                                        "logs:DeleteSubscriptionFilter",
+                                        "logs:PutRetentionPolicy"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "AccountId": {
+            "Description": "The AWS Account ID where this stack is deployed",
+            "Value": {
+                "Ref": "AWS::AccountId"
+            }
+        }
+    }
+}
