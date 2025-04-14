@@ -77,6 +77,26 @@
                                 }
                             ]
                         }
+                    },
+                    {
+                        "PolicyName": "DeleteProtectionCFN",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Deny",
+                                    "Action": "cloudformation:DeleteStack",
+                                    "Resource": [
+                                        { "Fn::Sub": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/braid-networking/*" },
+                                        { "Fn::Sub": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/braid-authentication/*" },
+                                        { "Fn::Sub": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/braid-database/*" },
+                                        { "Fn::Sub": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/braid-database-jcard/*" },
+                                        { "Fn::Sub": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/braid-api-banking/*" },
+                                        { "Fn::Sub": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/braid-web-dashboard/*" }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "Tags": [
