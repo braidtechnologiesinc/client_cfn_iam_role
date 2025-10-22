@@ -110,7 +110,59 @@
                     },
                     {
                         "Key": "Service",
-                        "Value": "Access"
+                        "Value": "FullAccess"
+                    }
+                ]
+            }
+        },
+        "BraidReadOnly": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "x_braid_access_readonly",
+                "MaxSessionDuration": 3600,
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::992382720710:root"
+                            },
+                            "Action": "sts:AssumeRole",
+                            "Condition": {
+                                "Bool": {
+                                    "aws:MultiFactorAuthPresent": "true"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::339713052484:role/tool_cloud_ide"
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/ReadOnlyAccess"
+                ],
+                "Tags": [
+                    {
+                        "Key": "Environment",
+                        "Value": "Production"
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": "Braid"
+                    },
+                    {
+                        "Key": "Service",
+                        "Value": "ReadOnlyAccess"
+                    },
+                    {
+                        "Key": "Purpose",
+                        "Value": "Investigation"
                     }
                 ]
             }
@@ -121,6 +173,18 @@
             "Description": "The AWS Account ID where this stack is deployed",
             "Value": {
                 "Ref": "AWS::AccountId"
+            }
+        },
+        "BraidFullAccessRoleArn": {
+            "Description": "ARN of the Braid full access role",
+            "Value": {
+                "Fn::GetAtt": ["Braid", "Arn"]
+            }
+        },
+        "BraidReadOnlyRoleArn": {
+            "Description": "ARN of the Braid read-only access role for log investigation",
+            "Value": {
+                "Fn::GetAtt": ["BraidReadOnly", "Arn"]
             }
         }
     }
